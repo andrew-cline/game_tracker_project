@@ -5,4 +5,7 @@
     <string name="username_edit_text_text">Username</string>
     <string name="username_text_view_text">Username</string>
     <string name="password_text_view_text">Password</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
