@@ -7,7 +7,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.gametracker.Game;
 import com.example.gametracker.User;
+
+import java.util.List;
 
 @Dao
 public interface GameTrackerDAO {
@@ -19,6 +22,15 @@ public interface GameTrackerDAO {
 
     @Delete
     void delete(User User);
+
+    @Insert
+    void insert(Game... Games);
+
+    @Update
+    void update(Game... Games);
+
+    @Delete
+    void delete(Game Game);
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE mUserId = :userId")
     User getUserByUserId(int userId);

@@ -54,12 +54,17 @@ public class CreateAccountActivity extends AppCompatActivity {
     private void createUser() {
         checkAdminUser();
         if(checkUsernameAndPassword()){
-            mUser = new User(mUsername, mPassword, mIsAdmin);
-            mGameTrackerDAO.insert(mUser);
-            mUserId = mGameTrackerDAO.getUserByUsername(mUsername).getUserId();
-            Intent intent = LibraryActivity.intentFactory(CreateAccountActivity.this, mUserId);
-            startActivity(intent);
-            finish();
+            if(checkDuplicateUsername()){
+                mUser = new User(mUsername, mPassword, mIsAdmin);
+                mGameTrackerDAO.insert(mUser);
+                mUserId = mGameTrackerDAO.getUserByUsername(mUsername).getUserId();
+                Intent intent = LibraryActivity.intentFactory(CreateAccountActivity.this, mUserId);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(CreateAccountActivity.this, "A User with that name already exists", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -77,6 +82,10 @@ public class CreateAccountActivity extends AppCompatActivity {
             Toast.makeText(CreateAccountActivity.this, "Invalid Username", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    private boolean checkDuplicateUsername() {
+        return mGameTrackerDAO.getUserByUsername(mUsername) == null;
     }
 
     private void checkAdminUser() {

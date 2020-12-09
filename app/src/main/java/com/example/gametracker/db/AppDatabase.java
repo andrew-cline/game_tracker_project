@@ -13,6 +13,7 @@ import com.example.gametracker.db.typeConverters.MapTypeConverter;
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "GAMETRACKER_DB";
     public static final String USER_TABLE = "USER_TABLE";
+    public static final String GAME_TABLE = "GAME_TABLE";
 
     public abstract GameTrackerDAO getGameTrackerDAO();
 }
