@@ -15,15 +15,15 @@ public class User {
 
     private String mUsername;
     private String mPassword;
-    //hashmap of games where the game is the key and the time played is the value
-    private HashMap<Game, Integer> mUserGameList;
+    //hashmap of games where the gameID is the key and the time played is the value
+    private HashMap<Integer, Pair<Integer>> mUserGameList;
     //defaults to zero for normal access, 1 is admin level
     private boolean mAdmin;
 
     public User( String mUsername, String mPassword, boolean mAdmin) {
         this.mUsername = mUsername;
         this.mPassword = mPassword;
-        this.mUserGameList = new HashMap<Game, Integer>();
+        this.mUserGameList = new HashMap<>();
         this.mAdmin = mAdmin;
     }
 
@@ -51,11 +51,11 @@ public class User {
         this.mPassword = mPassword;
     }
 
-    public HashMap<Game, Integer> getUserGameList() {
+    public HashMap<Integer, Pair<Integer>> getUserGameList() {
         return mUserGameList;
     }
 
-    public void setUserGameList(HashMap<Game, Integer> mUserGameList) {
+    public void setUserGameList(HashMap<Integer, Pair<Integer>> mUserGameList) {
         this.mUserGameList = mUserGameList;
     }
 

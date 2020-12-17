@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class LibraryActivity extends AppCompatActivity {
     private GameTrackerDAO mGameTrackerDAO;
 
     private TextView mUserIdDisplay, mUsernameDisplay, mAdminDisplay;
+
+    private Button addGameButton;
 
     private User mUser;
 
@@ -41,6 +45,8 @@ public class LibraryActivity extends AppCompatActivity {
         mUsernameDisplay = findViewById(R.id.TextViewUsernameLibrary);
         mAdminDisplay = findViewById(R.id.TextViewAdminLibrary);
 
+        addGameButton = findViewById(R.id.libraryAddGameButton);
+
         getDatabase();
         
         init();
@@ -54,6 +60,14 @@ public class LibraryActivity extends AppCompatActivity {
         mUserIdDisplay.setText(idPlaceHolder);
         mUsernameDisplay.setText(usernamePlaceHolder);
         checkPrivilege();
+
+        addGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = AddGameActivity.intentFactory(LibraryActivity.this, mUserId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void storeUserData() {

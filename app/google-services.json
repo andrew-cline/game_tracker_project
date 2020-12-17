@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105956119008",
+    "project_id": "game-tracker-2a182",
+    "storage_bucket": "game-tracker-2a182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105956119008:android:f73adae4ba54b579ac5b85",
+        "android_client_info": {
+          "package_name": "com.example.gametracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105956119008-ai9tk00p6fvsierd4t0l61mg743thq36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeWtrSr2u78qgYh0BEaJIKjeHh7iPvYas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105956119008-ai9tk00p6fvsierd4t0l61mg743thq36.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

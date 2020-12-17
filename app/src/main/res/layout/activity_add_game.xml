@@ -4,49 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LibraryActivity">
+    tools:context=".AddGameActivity">
 
-    <TextView
-        android:id="@+id/TextViewIdLibrary"
+    <EditText
+        android:id="@+id/editTextGameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text=""
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/name_of_game_hint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/TextViewUsernameLibrary"
+    <EditText
+        android:id="@+id/editTextTimePlayed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text=""
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="@string/time_played_in_hours"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewIdLibrary" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextGameName" />
 
-    <TextView
-        android:id="@+id/TextViewAdminLibrary"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/CompleteSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text=""
+        android:layout_marginTop="72dp"
+        android:text="@string/complete_switch_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewUsernameLibrary" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTimePlayed" />
 
     <Button
-        android:id="@+id/libraryAddGameButton"
+        android:id="@+id/AddGameButtonConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="228dp"
         android:text="@string/add_game_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintTop_toBottomOf="@+id/CompleteSwitch"
+        app:layout_constraintVertical_bias="0.42" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.gametracker.db.typeConverters;
 import androidx.room.TypeConverter;
 
 import com.example.gametracker.Game;
+import com.example.gametracker.Pair;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 public class MapTypeConverter {
     @TypeConverter
-    public static String fromMap(HashMap<Game, Integer> list){
+    public static String fromMap(HashMap<Integer, Pair<Integer>> list){
         Gson gson = new Gson();
 
         String json = gson.toJson(list);
@@ -23,8 +24,8 @@ public class MapTypeConverter {
     }
 
     @TypeConverter
-    public static HashMap<Game, Integer> fromString(String value){
-        Type listType = new TypeToken<HashMap<Game, Integer>>(){}.getType();
+    public static HashMap<Integer, Pair<Integer>> fromString(String value){
+        Type listType = new TypeToken<HashMap<Integer, Pair<Integer>>>(){}.getType();
 
         return new Gson().fromJson(value, listType);
     }

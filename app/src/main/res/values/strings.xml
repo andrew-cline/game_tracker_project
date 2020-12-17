@@ -9,4 +9,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="logout">Logout</string>
+    <string name="add_game_button">Add Game</string>
+    <string name="name_of_game_hint">Name of Game</string>
+    <string name="time_played_in_hours">Time Played in Hours</string>
+    <string name="have_you_completed_the_game">Have you completed the game?</string>
+    <string name="complete_switch_text">Have you completed the game?</string>
 </resources>

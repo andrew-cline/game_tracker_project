@@ -3,7 +3,9 @@ package com.example.gametracker;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+import com.example.gametracker.db.AppDatabase;
+
+@Entity(tableName = AppDatabase.GAME_TABLE)
 public class Game {
 
     @PrimaryKey(autoGenerate = true)
@@ -12,18 +14,14 @@ public class Game {
     private String mName;
     private double mAverageCompleteTime;
     private String mDescription;
-    private int mPlayerAmount;
+    private int mPlayerAmount = 0;
     //going unused until I find a nice way to implement it
     //Prob not the right way to do images, but this is how I did it in PHP
     private String mImageAddress;
 
-    public Game(int mGameId, String mName, double mAverageCompleteTime, String mDescription, int mPlayerAmount, String mImageAddress) {
-        this.mGameId = mGameId;
+    public Game(String mName, int mPlayerAmount) {
         this.mName = mName;
-        this.mAverageCompleteTime = mAverageCompleteTime;
-        this.mDescription = mDescription;
         this.mPlayerAmount = mPlayerAmount;
-        this.mImageAddress = mImageAddress;
     }
 
     public int getGameId() {
@@ -72,5 +70,10 @@ public class Game {
 
     public void setImageAddress(String mImageAddress) {
         this.mImageAddress = mImageAddress;
+    }
+
+    @Override
+    public String toString(){
+        return mName + " : " + mGameId;
     }
 }
