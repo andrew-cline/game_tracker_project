@@ -3,6 +3,8 @@ package com.example.gametracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Context;
@@ -15,19 +17,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gametracker.db.AppDatabase;
 import com.example.gametracker.db.GameTrackerDAO;
 
+import java.util.ArrayList;
+
 public class LibraryActivity extends AppCompatActivity {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private Integer mUserId;
 
     private GameTrackerDAO mGameTrackerDAO;
-
-    private TextView mUserIdDisplay, mUsernameDisplay, mAdminDisplay;
 
     private Button addGameButton;
 
@@ -41,10 +46,6 @@ public class LibraryActivity extends AppCompatActivity {
 
         mUserId = getIntent().getIntExtra(MainActivity.USER_ID_KEY, -1);
 
-        mUserIdDisplay = findViewById(R.id.TextViewIdLibrary);
-        mUsernameDisplay = findViewById(R.id.TextViewUsernameLibrary);
-        mAdminDisplay = findViewById(R.id.TextViewAdminLibrary);
-
         addGameButton = findViewById(R.id.libraryAddGameButton);
 
         getDatabase();
@@ -54,12 +55,20 @@ public class LibraryActivity extends AppCompatActivity {
         storeUserData();
         Toast.makeText(this, "Logged in as " + mUser.getUsername(), Toast.LENGTH_SHORT).show();
 
-        String idPlaceHolder = "User ID: " + mUser.getUserId();
-        String usernamePlaceHolder = "Welcome " + mUser.getUsername();
-        
-        mUserIdDisplay.setText(idPlaceHolder);
-        mUsernameDisplay.setText(usernamePlaceHolder);
         checkPrivilege();
+
+        ArrayList<GameItem> gameList = new ArrayList<>();
+        gameList.add(new GameItem("Silent Hill", "8 hours"));
+        gameList.add(new GameItem("Silent Hill 2", "30 hours"));
+        gameList.add(new GameItem("Silent Hill 3", "3 hours"));
+
+        mRecyclerView = findViewById(R.id.libraryRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new CustomAdapter(gameList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
         addGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +90,7 @@ public class LibraryActivity extends AppCompatActivity {
 
 
     private void checkPrivilege() {
-        if(mUser.isAdmin()){
-            String adminPlaceHolder = mUser.getUsername() + " is an admin";
-            mAdminDisplay.setText(adminPlaceHolder);
-        }else{
-            String adminPlaceHolder = mUser.getUsername() + " is not an admin";
-            mAdminDisplay.setText(adminPlaceHolder);
-        }
+
     }
 
     private void init() {
