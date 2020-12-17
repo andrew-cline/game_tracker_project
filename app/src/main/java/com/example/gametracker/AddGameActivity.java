@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.gametracker.db.AppDatabase;
 import com.example.gametracker.db.GameTrackerDAO;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class AddGameActivity extends AppCompatActivity {
 
     private Integer mUserId;
 
-    private Switch mCompletedSwitch;
+    private SwitchMaterial mCompletedSwitch;
 
     private Button mAddGameButton;
 
@@ -60,6 +61,8 @@ public class AddGameActivity extends AppCompatActivity {
                     insertIntoDatabase();
                     updateUserList();
                 }
+                Intent intent = LibraryActivity.intentFactory(AddGameActivity.this, mUserId);
+                startActivity(intent);
             }
         });
 
@@ -73,13 +76,9 @@ public class AddGameActivity extends AppCompatActivity {
 
     private void updateUserList() {
         User mUser = mGameTrackerDAO.getUserByUserId(mUserId);
-        HashMap<Integer, Pair<Integer>> mUserGameList = mUser.getUserGameList();
+        HashMap<Integer, Pair<Integer, Boolean>> mUserGameList = mUser.getUserGameList();
         int mGameId = mGameTrackerDAO.getGameByName(mGameName).getGameId();
-        int temp = 0;
-        if(mCompleted){
-            temp = 1;
-        }
-        mUserGameList.put(mGameId, new Pair<Integer>(mTimePlayed, temp));
+        mUserGameList.put(mGameId, new Pair<>(mTimePlayed, mCompleted));
         mUser.setUserGameList(mUserGameList);
         mGameTrackerDAO.update(mUser);
     }
@@ -126,7 +125,7 @@ public class AddGameActivity extends AppCompatActivity {
     }
 
     public static Intent intentFactory(Context context, int userId){
-        Intent intent = new Intent(context, LibraryActivity.class);
+        Intent intent = new Intent(context, AddGameActivity.class);
         intent.putExtra(MainActivity.USER_ID_KEY, userId);
         return intent;
     }

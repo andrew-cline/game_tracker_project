@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class MapTypeConverter {
     @TypeConverter
-    public static String fromMap(HashMap<Integer, Pair<Integer>> list){
+    public static String fromMap(HashMap<Integer, Pair<Integer,Boolean>> list){
         Gson gson = new Gson();
 
         String json = gson.toJson(list);
@@ -24,8 +24,8 @@ public class MapTypeConverter {
     }
 
     @TypeConverter
-    public static HashMap<Integer, Pair<Integer>> fromString(String value){
-        Type listType = new TypeToken<HashMap<Integer, Pair<Integer>>>(){}.getType();
+    public static HashMap<Integer, Pair<Integer, Boolean>> fromString(String value){
+        Type listType = new TypeToken<HashMap<Integer, Pair<Integer, Boolean>>>(){}.getType();
 
         return new Gson().fromJson(value, listType);
     }
