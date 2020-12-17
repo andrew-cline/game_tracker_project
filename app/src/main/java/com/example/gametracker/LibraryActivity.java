@@ -23,6 +23,8 @@ import com.example.gametracker.db.AppDatabase;
 import com.example.gametracker.db.GameTrackerDAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LibraryActivity extends AppCompatActivity {
 
@@ -58,9 +60,14 @@ public class LibraryActivity extends AppCompatActivity {
         checkPrivilege();
 
         ArrayList<GameItem> gameList = new ArrayList<>();
-        gameList.add(new GameItem("Silent Hill", "8 hours"));
-        gameList.add(new GameItem("Silent Hill 2", "30 hours"));
-        gameList.add(new GameItem("Silent Hill 3", "3 hours"));
+        HashMap<Integer, Pair<Integer, Boolean>> userGameMap = mUser.getUserGameList();
+        for(Map.Entry<Integer, Pair<Integer, Boolean>> Game : userGameMap.entrySet()){
+            Game tempGame = mGameTrackerDAO.getGameById((int)Game.getKey());
+            String tempName = tempGame.getName();
+            Pair<Integer, Boolean> tempPair = Game.getValue();
+            String playTimeString = tempPair.getP1().toString() + " hours";
+            gameList.add(new GameItem(tempName, playTimeString));
+        }
 
         mRecyclerView = findViewById(R.id.libraryRecyclerView);
         mRecyclerView.setHasFixedSize(true);

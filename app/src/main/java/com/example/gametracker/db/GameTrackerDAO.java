@@ -38,6 +38,9 @@ public interface GameTrackerDAO {
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE mUsername = :username")
     User getUserByUsername(String username);
 
+    @Query("SELECT * FROM " + AppDatabase.GAME_TABLE + " WHERE mGameId = :gameId")
+    Game getGameById(int gameId);
+
     @Query("SELECT * FROM " + AppDatabase.GAME_TABLE + " WHERE mName = :gameName" )
     Game getGameByName(String gameName);
 }
