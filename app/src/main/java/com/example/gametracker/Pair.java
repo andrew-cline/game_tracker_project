@@ -5,6 +5,7 @@ import java.util.Objects;
 
 //Code obtain from this stackoverflow thread
 //https://stackoverflow.com/questions/10234487/storing-number-pairs-in-java?noredirect=1&lq=1
+//required because java does not have tuples
 public class Pair<T, V> {
     T p1;
     V p2;

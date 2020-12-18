@@ -14,4 +14,6 @@
     <string name="time_played_in_hours">Time Played in Hours</string>
     <string name="have_you_completed_the_game">Have you completed the game?</string>
     <string name="complete_switch_text">Have you completed the game?</string>
+    <string name="admin_screen">Admin Screen</string>
+    <string name="delete_account">Delete Account</string>
 </resources>

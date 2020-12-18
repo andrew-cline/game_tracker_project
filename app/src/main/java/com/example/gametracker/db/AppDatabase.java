@@ -6,10 +6,11 @@ import androidx.room.TypeConverters;
 
 import com.example.gametracker.Game;
 import com.example.gametracker.User;
+import com.example.gametracker.db.typeConverters.ListTypeConverter;
 import com.example.gametracker.db.typeConverters.MapTypeConverter;
 
 @Database(entities = {User.class, Game.class}, version = 1)
-@TypeConverters(MapTypeConverter.class)
+@TypeConverters({MapTypeConverter.class, ListTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "GAMETRACKER_DB";
     public static final String USER_TABLE = "USER_TABLE";

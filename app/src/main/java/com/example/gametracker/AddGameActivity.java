@@ -1,9 +1,11 @@
 package com.example.gametracker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,9 @@ import com.example.gametracker.db.AppDatabase;
 import com.example.gametracker.db.GameTrackerDAO;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AddGameActivity extends AppCompatActivity {
 
@@ -59,8 +63,8 @@ public class AddGameActivity extends AppCompatActivity {
                     updateGameValues();
                 }else{
                     insertIntoDatabase();
-                    updateUserList();
                 }
+                updateUserList();
                 Intent intent = LibraryActivity.intentFactory(AddGameActivity.this, mUserId);
                 startActivity(intent);
             }
@@ -70,8 +74,24 @@ public class AddGameActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mCompleted = b;
+                if(mCompleted){
+                    completeAlert();
+                }
             }
         });
+    }
+
+    private void completeAlert() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Warning");
+        alert.setMessage("Once you mark a game as complete you can not update its play time.");
+        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alert.show();
     }
 
     private void updateUserList() {
@@ -84,6 +104,27 @@ public class AddGameActivity extends AppCompatActivity {
     }
 
     private void updateGameValues() {
+        mGame = mGameTrackerDAO.getGameByName(mGameName);
+        mGame.setPlayerAmount(mGame.getPlayerAmount() + 1);
+        ArrayList<Integer> tempList = mGame.getUserIdList();
+        tempList.add(mUserId);
+        mGame.setUserIdList(tempList);
+        if(mCompleted){
+            List<User> userList = mGameTrackerDAO.getUsersById(tempList);
+            if(userList.size() > 0){
+                int sum = 0;
+                int size = userList.size();
+                for(User user: userList){
+                    if(user.getUserGameList().get(mGame.getGameId()).getP2()){
+                        sum += user.getUserGameList().get(mGame.getGameId()).getP1();
+                    }
+                }
+                mGame.setAverageCompleteTime((sum / size));
+            }else{
+                mGame.setAverageCompleteTime(mTimePlayed);
+            }
+        }
+        mGameTrackerDAO.update(mGame);
     }
 
     //returns true if game exists in db
@@ -104,6 +145,9 @@ public class AddGameActivity extends AppCompatActivity {
         if(mCompleted){
             mGame.setAverageCompleteTime(mTimePlayed);
         }
+        ArrayList<Integer> tempList = new ArrayList<>();
+        tempList.add(mUserId);
+        mGame.setUserIdList(tempList);
         mGameTrackerDAO.insert(mGame);
     }
 

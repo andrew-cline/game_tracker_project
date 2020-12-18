@@ -89,7 +89,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void checkAdminUser() {
-        if(mUsernameField.getText().toString().equals("ancline")){
+        if(mUsernameField.getText().toString().equals("admin")){
             mIsAdmin = true;
         }
     }

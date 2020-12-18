@@ -10,6 +10,7 @@ import androidx.room.Update;
 import com.example.gametracker.Game;
 import com.example.gametracker.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -34,6 +35,9 @@ public interface GameTrackerDAO {
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE mUserId = :userId")
     User getUserByUserId(int userId);
+
+    @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE mUsername IN (:userIdList)")
+    List<User> getUsersById(ArrayList<Integer> userIdList);
 
     @Query("SELECT * FROM " + AppDatabase.USER_TABLE + " WHERE mUsername = :username")
     User getUserByUsername(String username);

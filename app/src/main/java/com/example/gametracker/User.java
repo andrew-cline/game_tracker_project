@@ -15,7 +15,8 @@ public class User {
 
     private String mUsername;
     private String mPassword;
-    //hashmap of games where the gameID is the key and the time played is the value
+    //hashmap, key is game id and value is a pair which contains and int representing play time
+    // and a boolean representing completion
     private HashMap<Integer, Pair<Integer, Boolean>> mUserGameList;
     //defaults to zero for normal access, 1 is admin level
     private boolean mAdmin;

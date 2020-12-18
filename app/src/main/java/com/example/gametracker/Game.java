@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey;
 
 import com.example.gametracker.db.AppDatabase;
 
+import java.util.ArrayList;
+
 @Entity(tableName = AppDatabase.GAME_TABLE)
 public class Game {
 
@@ -15,6 +17,7 @@ public class Game {
     private double mAverageCompleteTime;
     private String mDescription;
     private int mPlayerAmount = 0;
+    private ArrayList<Integer> userIdList;
     //going unused until I find a nice way to implement it
     //Prob not the right way to do images, but this is how I did it in PHP
     private String mImageAddress;
@@ -46,6 +49,14 @@ public class Game {
 
     public void setAverageCompleteTime(double mAverageCompleteTime) {
         this.mAverageCompleteTime = mAverageCompleteTime;
+    }
+
+    public ArrayList<Integer> getUserIdList() {
+        return userIdList;
+    }
+
+    public void setUserIdList(ArrayList<Integer> userIdList) {
+        this.userIdList = userIdList;
     }
 
     public String getDescription() {
